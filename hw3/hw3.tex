@@ -1,0 +1,70 @@
+\documentclass[12pt,letterpaper,cm]{hmcpset}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{upgreek}
+\usepackage{amsmath,amssymb,xfrac}
+\usepackage{algorithm2e}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage{upquote}% getting the right grave ` (and not ?)!
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\myunderscore}{\noindent\rule{0.25cm}{0.4pt}}
+\newcommand{\X}{\overline{\underline{X}}}
+
+
+\name{Danny Liu}
+\class{Math143 - Homework 3}
+
+% info for header block in upper right hand corner
+\setlength\parindent{0pt}
+
+\begin{document}
+\textbf{Problem 1}: Show that $\mathbb{R}P^N$ is a differentiable manifold by definition. 
+
+\begin{solution}
+Let $(x_1, \ldots, x_{n+1}) \in \mathbb{R}^{n+1}$. Recall that $\mathbb{R}P^n$ is the set of lines in $\mathbb{R}^{n+1}$ which pass through the origin, so $\mathbb{R}P^n$ can be identified as the quotient space of $\mathbb{R}^{n+1} - \{0\}$ by an equivalence relation. $(x_1, x_2, \ldots, x_{n+1}) \sim (\lambda x_1, \ldots, \lambda x_{n+1})$ for $\lambda \in \mathbb{R}, \lambda \neq 0$. The points of $\mathbb{RP^n}$ will be denoted by $[x_1, \ldots, x_{n+1}]$. \\
+
+To prove property (1) of differentiable manifolds, define subsets $V_1, \ldots, V_{n+1}$ of $\mathbb{R}P^n$ by $V_i = \{[x_1, \ldots, x_{n+1}\} | x_i \neq 0 \}$. We claim that $\mathbb{R}P^n$ can be covered by $V_1, \ldots, V_{n+1}$. \\
+
+To prove property (2), we define $X_i: \mathbb{R}^n \to V_i$ so that $X_i (y_1, \ldots, y_n) - [y_1, \ldots, y_{i-1}, 1, y_i, \ldots, y_n]$ where $y_i = \frac{x_i + 1}{x_i}$. Easy to check $V_1 \cap V_j \neq \emptyset$ and $X^{-1} (V_i \cap V_j)$ are open. \\
+In addition, $X_j^{-1}X_i (y_1, \ldots, y_n) = X_j^{-1} [y_1, \ldots, y_{i-1}, 1, y_i, \ldots, y_n] \\
+= X^{j-1}[\frac{y_1}{y_j}, \ldots, 1, \frac{y_{j+1}}{y_{j}}, \ldots, \frac{y_{i-1}}{y_j}, \frac{1}{y_j}, \frac{y_i}{y_j}, \ldots, \frac{y_n}{y_j}] = (\frac{y_1}{y_j}, \frac{y_{j-1}}{y_j}, \frac{y_{j+1}}{y_{j}}, \ldots, \frac{y_{i-1}}{y_j}, \frac{1}{y_j}, \frac{y_i}{y_j}, \ldots, \frac{y_n}{y_j})$. \\
+This mapping is differentiable, thus done. 
+
+\end{solution}
+
+\textbf{Problem 2}: Show why the set of tangent vectors which is tangent to all the curves starting from a point on a manifold M form a linear space (called a tangent space at p of M, denoted by $T_pM$).
+
+\begin{solution}
+A tangent vector at $p$ of $M$ is the tangent vector at $t = 0$ of some curve $(-\epsilon, \epsilon) \to M$ with $\alpha^\prime(0) = p$. \\
+$T_pM$ is a vector space. Moreover if we chose a parametrization $\X: U \to M$, then $T_pM$ has a basis $\{\frac{\partial}{\partial x_1}, \ldots, \frac{\partial}{\partial x_n} \}$ and we define its dual basis as $\{dx_1, \ldots, dx_n \}$. \\
+Recall for a basis $\{e_1, \ldots, e_n \}$ of $V^n$, then $\{e_1^*, \ldots, e_n^* \}$ is the dual basis of $(V^n)^*$. Key idea is to mimic the orthonormal basis of $\mathbb{R}^n$. Define $\{e_1^*, \ldots, e_n^* \}$ such that $e_i^* (e_j) = \delta_{ij}$. \\
+We see that we can eventually derive $\alpha^\prime(0) = \sum_i x_i^\prime (0) (\frac{\partial}{\partial x_i})_0$, which implies that every vector on $T_p M$ is a linear combination of the basis vectors, so it is a vector space.
+
+\end{solution}
+
+\textbf{Problem 3}: Show we can put a differentiable structure on a tangent bundle of a differentiable manifold.
+
+\begin{solution}
+Recall that if $M$ is a differentiable manifold, then the set $TM = \{(p, v) : p \in M, v \in T_pM \}$ with a differential structure is called the tangent bundle of $M$. We prove that such a differential structure always exists. \\
+
+Let $\{(U_\alpha, X_\alpha) \}$ be a maximal differential structure on $M$. Denote the coordinates of $U_\alpha$ by $(x_1^\alpha, \ldots, x_n^\alpha)$ and the associated bases of the tangent spaces $X_\alpha(U_\alpha)$ by $\{\frac{\partial}{\partial x_1^\alpha}, \ldots, \frac{\partial}{\partial x_n^\alpha} \}$. Then for every $\alpha$, define $Y_\alpha: U \times \mathbb{R}^n \to TM$ by $Y_\alpha(x_1^\alpha, \dots, x_n^\alpha, \mu_1, \ldots, \mu_n) = (\X_\alpha(x_1^\alpha, \ldots, x_n^\alpha), \sum_{i=1}^n u_i \frac{\partial}{\partial x_1^\alpha})$ where $\mu \in \mathbb{R}^n$. Then $(U_\alpha \times \mathbb{R}^n, Y_\alpha)$ is a differential structure on $TM$. The proof for this is similar enough to problem 1 that it is left as an exercise to the reader.
+
+\end{solution}
+
+\textbf{Problem 4}: If M is a manifold and G is a group that acts discontinuously on M, Show M/G is a manifold. (See theorem on page 23, Do Carmo Riemanninan Geometry).
+
+\begin{solution}
+Recall that we say a group $G$ acts on a differentiable manifold $M$ if there exists a mapping $\phi: G \times M \to M$ such that \\
+(1) for each $g\in G$, the mapping $\phi_i: M \to M$ given by $\phi_g(p) = \phi(g, p)$ for $p \in M$ is a diffeomorphism and $\phi_e$ is the identity \\
+(2) if $g_1, g_2 \in G$, then $\phi_{g_1g_2} = \phi_{g_1} \phi_{g_2}$ \\
+We also say that an action is properly discontinuous if every $p \in M$ has a neighborhood $U \subset M$ such that $U \cup g(U) = \emptyset$ for all $g \neq e$. Note that each such group action determines an equivalence relation on $M$. We can form a quotient space $M/G$ using this equivalence relation. In fact, $M/G$ has a differential structure with respect to which the projection $M \to M/G$ is a local diffeomorphism. Hence $M/G$ is also a differentiable manifold.  \\
+An example is the Torus viewed as $\mathbb{R}^k/G$ where $G = \mathbb{Z}^k$.
+
+\end{solution}
+
+\end{document}
+
+
+
+
